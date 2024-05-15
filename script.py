@@ -7,7 +7,7 @@ def pythonwinbash(source_file, output_file=None, flags=None):
     command = ["gcc", source_file, "-o", output_file]
     
     if flags:
-       command.extend(flags)
+       command.append(flags)
     
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, error = process.communicate()
