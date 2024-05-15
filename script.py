@@ -1,20 +1,25 @@
 import subprocess
 import sys
 
-def pythonwinbash(source_file, output_file=None, flags=None):
-    if not output_file:
-        output_file = source_file.rsplit('.', 1)[0]
+def pythonwinbash(source_file, output_file, flags):
     command = ["gcc", source_file, "-o", output_file]
     
     if flags:
        command.extend(flags)
     
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    output, error = process.communicate()
+    compile_process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output, error1 = compile_process.communicate()
+
+    command = f"./{out}.exe"
+    #print(command)
+    run_process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output, error2 = run_process.communicate()
     
-    if error:
-       return 0, "Ошибка!"
-    else:
+    if error1:
+       return 0, f"{error1.decode('utf-8')}"
+    elif error2:
+       return 0, f"{error2.decode('utf-8')}"
+    else: 
        return 1, "Окей"
 
 
@@ -44,4 +49,4 @@ while find:
       iters_cur = (iters_min + iters_max) // 2
 
 print(result)
-print(iters_cur) # // 1024 // 1024 // 1024 // 1024 // 1024 // 8
+print(iters_cur)

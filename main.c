@@ -8,6 +8,7 @@ int main(void)
 {
     int a[N];
     a[0] = 123;
-    printf("%d \n", a[0]);
+    a[N - 1] = a[0] + 53;
+    printf("%d %d \n", a[0], a[N-1]);
     return 0;
 }
